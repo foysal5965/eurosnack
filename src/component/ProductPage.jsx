@@ -1,12 +1,10 @@
 'use client';
+
 import React from 'react';
 import { Box, Grid, Card, CardContent, CardMedia, Typography, Button } from '@mui/material';
-import image2 from '../assets/banner-desktop.webp'; // Import your image
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
-
-// Dynamically import framer-motion to disable SSR (Server-Side Rendering)
-const MotionDiv = dynamic(() => import('framer-motion').then((mod) => mod.motion.div), { ssr: false });
+import image2 from '../assets/banner-desktop.webp'; // Replace with your actual image
 
 const products = [
   { id: 1, name: 'Product 1', price: 25.99, image: image2 },
@@ -19,26 +17,34 @@ const products = [
 
 const ProductPage = () => {
   return (
-    <Box sx={{ padding: '2rem', backgroundColor: '#f4f6f8', marginTop: '120px' }}>
+    <Box
+      sx={{
+        padding: '2rem',
+        backgroundColor: '#f4f6f8',
+        marginTop: '120px',
+        minHeight: '100vh',
+      }}
+    >
       <Typography variant="h4" gutterBottom align="center">
         Our Products
       </Typography>
 
-      {/* Grid to display product cards */}
+      {/* Product Cards Grid */}
       <Grid container spacing={4} justifyContent="center">
         {products.map((product) => (
-          <Grid item xs={12} sm={6} md={3} key={product.id}>
-            {/* MotionDiv to apply hover effect on Card */}
-            <MotionDiv
+          <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
+            {/* Motion Card for Animation */}
+            <motion.div
               whileHover={{
                 scale: 1.05,
                 boxShadow: '0px 8px 20px rgba(0, 0, 0, 0.2)',
-                cursor:'pointer'
               }}
+              whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.3 }}
               style={{ borderRadius: '16px', overflow: 'hidden' }}
             >
               <Card sx={{ maxWidth: 345, boxShadow: 3 }}>
+                {/* Image Section */}
                 <CardMedia
                   component="div"
                   sx={{
@@ -54,20 +60,25 @@ const ProductPage = () => {
                     objectFit="cover"
                   />
                 </CardMedia>
+
+                {/* Content Section */}
                 <CardContent>
                   <Typography variant="h6" component="div">
                     {product.name}
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '1rem' }}>
-                    ${product.price}
+                    ${product.price.toFixed(2)}
                   </Typography>
 
-                  {/* Motion Div for animated button */}
-                  <MotionDiv
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1 }}
-                    style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+                  {/* Animated Button */}
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
                   >
                     <Button
                       fullWidth
@@ -85,21 +96,13 @@ const ProductPage = () => {
                           backgroundPosition: '200% 200%',
                         },
                       }}
-                      whileHover={{
-                        scale: 1.1,
-                        rotate: 10,
-                      }}
-                      whileTap={{
-                        scale: 0.9,
-                        rotate: -10,
-                      }}
                     >
                       Add to Cart
                     </Button>
-                  </MotionDiv>
+                  </motion.div>
                 </CardContent>
               </Card>
-            </MotionDiv>
+            </motion.div>
           </Grid>
         ))}
       </Grid>
