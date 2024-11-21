@@ -89,7 +89,7 @@ const ResponsiveCarousel = () => {
         <Box sx={{ ...slideStyles, backgroundImage: `url(${image1.src})` }}></Box>
         <Box sx={{ ...slideStyles, backgroundImage: `url(${image2.src})` }}>
           <Typography variant="h5" color="white" sx={{ background: 'rgba(0, 0, 0, 0.5)', padding: 1 }}>
-            Slide Content
+            
           </Typography>
         </Box>
       </Slider>

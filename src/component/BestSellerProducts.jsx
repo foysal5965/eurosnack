@@ -1,38 +1,41 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Grid, Card, CardContent, CardMedia, Typography, Button } from '@mui/material';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import image2 from '../assets/banner-desktop.webp'; // Replace with your actual image
+import image1 from '../assets/banner-desktop.webp'; // Replace with your actual image
+import imageHover from '../assets/koala-desktop.webp'; // Hover image
 
 const products = [
-  { id: 1, name: 'Product 1', price: 25.99, image: image2 },
-  { id: 2, name: 'Product 2', price: 35.99, image: image2 },
-  { id: 3, name: 'Product 3', price: 15.99, image: image2 },
-  { id: 4, name: 'Product 4', price: 45.99, image: image2 },
-  { id: 5, name: 'Product 5', price: 29.99, image: image2 },
-  { id: 6, name: 'Product 6', price: 19.99, image: image2 },
+  { id: 1, name: 'Product 1', price: 25.89, image: image1, hoverImage: imageHover },
+  { id: 2, name: 'Product 2', price: 35.99, image: image1, hoverImage: imageHover },
+  { id: 3, name: 'Product 3', price: 15.99, image: image1, hoverImage: imageHover },
+  { id: 4, name: 'Product 4', price: 45.99, image: image1, hoverImage: imageHover },
+  { id: 5, name: 'Product 5', price: 29.99, image: image1, hoverImage: imageHover },
+  { id: 6, name: 'Product 6', price: 19.99, image: image1, hoverImage: imageHover },
 ];
 
-const ProductPage = () => {
+const BestSellerProducts = () => {
+  const [hoveredId, setHoveredId] = useState(null); // Track which product is hovered
+
   return (
     <Box
       sx={{
         padding: '2rem',
         backgroundColor: '#f4f6f8',
         marginTop: '120px',
-        minHeight: '100vh',
+        cursor:'pointer'
       }}
     >
       <Typography variant="h4" gutterBottom align="center">
-        Our Products
+        Best Selling Products
       </Typography>
 
       {/* Product Cards Grid */}
       <Grid container spacing={4} justifyContent="center">
         {products.map((product) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={product.id}>
+          <Grid item xs={12} sm={6} md={4} lg={2} key={product.id}>
             {/* Motion Card for Animation */}
             <motion.div
               whileHover={{
@@ -42,6 +45,8 @@ const ProductPage = () => {
               whileTap={{ scale: 0.95 }}
               transition={{ duration: 0.3 }}
               style={{ borderRadius: '16px', overflow: 'hidden' }}
+              onMouseEnter={() => setHoveredId(product.id)} // Set hovered ID
+              onMouseLeave={() => setHoveredId(null)} // Clear hovered ID
             >
               <Card sx={{ maxWidth: 345, boxShadow: 3 }}>
                 {/* Image Section */}
@@ -54,7 +59,7 @@ const ProductPage = () => {
                   }}
                 >
                   <Image
-                    src={product.image}
+                    src={hoveredId === product.id ? product.hoverImage : product.image} // Toggle image on hover
                     alt={product.name}
                     layout="fill"
                     objectFit="cover"
@@ -110,4 +115,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default BestSellerProducts;
