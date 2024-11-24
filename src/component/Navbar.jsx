@@ -69,7 +69,7 @@ const Navbar = () => {
     <AppBar sx={{ zIndex: 1201, backgroundColor: '#333333', m: 0 }}>
       <Toolbar sx={{ m: 0, px: 2 }}>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          FragFuel
+          EuroSnack
         </Typography>
 
         <Stack
@@ -249,6 +249,25 @@ const Navbar = () => {
               </Box>
             )}
           </Box>
+
+          <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', gap: 1 }}>
+            <IconButton color="inherit" onClick={handleSearchClick}>
+              <SearchIcon />
+            </IconButton>
+            {searchOpen && (
+              <TextField
+                placeholder="Search..."
+                variant="outlined"
+                size="small"
+                sx={{
+                  backgroundColor: '#fff',
+                  borderRadius: 1,
+                  width: { xs: '150px', sm: '200px' },
+                }}
+              />
+            )}
+          </Box>
+
           <Link href="/login" passHref>
             <Box fontWeight={600} sx={{ textDecoration: 'none', color: 'white' }}>
               Login
