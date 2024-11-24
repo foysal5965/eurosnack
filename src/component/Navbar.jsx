@@ -305,19 +305,72 @@ const Navbar = () => {
           <Stack direction="column" justifyContent="center" alignItems="center" gap={2} sx={{ m: 0 }}>
             {menuItems.map((item) => (
               <motion.div key={item.text} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+                {item.text === 'All Products' ? (
+                <Box sx={{ position: 'relative', m: 0 }}>
+                  <Typography
+                    sx={{
+                      fontWeight: 700,
+                      textDecoration: 'none',
+                      cursor: 'pointer',
+                      color: 'inherit',
+                      m: 0,
+                    }}
+                    onClick={handleCategoryClick}
+                  >
+                    {item.text}
+                    <ArrowDropDownIcon sx={{ fontSize: 20, verticalAlign: 'middle', ml: 1 }} />
+                  </Typography>
+                  {categoryDropdownOpen && (
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: '100%',
+                        left: 0,
+                        backgroundColor: 'white',
+                        boxShadow: 3,
+                        zIndex: 1301,
+                        py: 1,
+                        minWidth: '150px',
+                        borderRadius: 1,
+                        border: '1px solid #ddd',
+                        m: 0,
+                      }}
+                    >
+                      {categoryItems.map((category) => (
+                        <Typography
+                          key={category}
+                          sx={{
+                            fontWeight: 600,
+                            color: 'black',
+                            cursor: 'pointer',
+                            px: 2,
+                            py: 1,
+                            '&:hover': { backgroundColor: '#f0f0f0' },
+                          }}
+                          onClick={() => setCategoryDropdownOpen(false)}
+                        >
+                          {category}
+                        </Typography>
+                      ))}
+                    </Box>
+                  )}
+                </Box>
+              ) : (
                 <Typography
                   sx={{
                     fontWeight: 700,
                     textDecoration: 'none',
-                    color: 'inherit',
+                    color: router.pathname === item.link ? 'blue' : 'inherit',
                     m: 0,
                   }}
                   component={Link}
                   href={item.link}
+                  passHref
                   onClick={handleMenuItemClick}
                 >
                   {item.text}
                 </Typography>
+              )}
               </motion.div>
             ))}
             {/* Mobile Language and Currency Dropdowns */}
@@ -383,6 +436,11 @@ const Navbar = () => {
                 </Box>
               )}
             </Box>
+            <Link href="/login" passHref>
+            <Box fontWeight={600} sx={{ textDecoration: 'none', color: 'black' }}>
+              Login
+            </Box>
+          </Link>
           </Stack>
         </Box>
       </Drawer>
