@@ -57,7 +57,7 @@ const Navbar = () => {
     { text: 'Home', link: '/' },
     { text: 'Promotions', link: '/promotions' },
     { text: 'All Products', link: '#', onClick: handleCategoryClick },
-    { text: 'Mystery Box', link: '/mystery-box', onClick: handleCategoryClick },
+    { text: 'Mystery Box', link: '/mystry-box', onClick: handleCategoryClick },
 
   ];
 
